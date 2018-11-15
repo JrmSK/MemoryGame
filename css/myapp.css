@@ -3,7 +3,7 @@ div {
 }
 
 body {
-    background-image: url(../img/background21.png);
+    background-image: url(../img/background.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -11,8 +11,8 @@ body {
 }
 
 .card {
-    width: 130px;
-    height: 201px;
+    width: 105px;
+    height: 164px;
     margin: 0.5vw;
     background-image: url(../img/cardBack.jpg);
     background-size: contain;

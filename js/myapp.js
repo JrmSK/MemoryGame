@@ -11,7 +11,7 @@ MemoryGame.generateBoard = function () {
     for (var i = 1; i <= 3; i++) {
         $("#board").append("<div class='row justify-content-center'>");
         for (var j = 1; j <= cardsByRow; j++) {
-            $(`.row:nth-child(${i})`).append("<div class='col-xs-3 card'>");
+            $(`.row:nth-child(${i})`).append("<div class='col-xs-5 card'>");
         }
     }
 

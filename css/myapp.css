@@ -1,7 +1,26 @@
-img {
-    height: 200px;
+div {
+    border: 1px solid blue;
 }
 
-#img1 {
-    display: none;
+body {
+    background-image: url(../img/background21.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    ;
+}
+
+.card {
+    width: 130px;
+    height: 201px;
+    margin: 0.5vw;
+    background-image: url(../img/cardBack.jpg);
+    background-size: contain;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid white;
+}
+
+.hovered {
+    border: 3px solid gold;
 }

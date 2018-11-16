@@ -3,11 +3,12 @@ div {
 }
 
 body {
-    background-image: url(../img/background.png);
-    background-size: cover;
-    background-position: center;
+    background: url("../img/background.png");
+    background-size:cover ;
     background-repeat: no-repeat;
-    ;
+    height: 100%;
+    background-attachment: fixed; 
+    background-position: center;
 }
 
 .card {
@@ -24,3 +25,15 @@ body {
 .hovered {
     border: 3px solid gold;
 }
+
+.selected {
+    border: 3px solid firebrick;
+}
+
+/* @media (max-width : 200px) {
+    .card{
+        width : 75px;
+        height: 116px;
+
+    }
+} */

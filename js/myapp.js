@@ -4,10 +4,10 @@ $(document).ready(function () {
 
 /* Variables  */
 var MemoryGame = {};
-MemoryGame.images = ["pic0.jpg", "pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg", "pic7.jpg", "pic8.jpg", ];    // if you want to add an image, add it here (keep same format, and try to keep ratio as well) 
+MemoryGame.images = ["pic0.jpg", "pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg", "pic7.jpg", "pic8.jpg",];    // if you want to add an image, add it here (keep same format, and try to keep ratio as well) 
 MemoryGame.selectedImages = [];
-MemoryGame.selectedFirstCard = -1;
-MemoryGame.selectedSecondCard = -1;
+MemoryGame.selectedFirstCard = ``;
+MemoryGame.selectedSecondCard = ``;
 MemoryGame.maxCards = 6;                                                     // change here for difficulty 
 
 MemoryGame.pickRandomCards = function () {
@@ -44,12 +44,6 @@ MemoryGame.generateBoard = function () {
     }
 }
 
-MemoryGame.flip = function(that, index) {
-
-    that.target.style.backgroundImage = `url('./img/${MemoryGame.selectedImages[index]}')`;
-
-}
-
 MemoryGame.gameplay = function () {
 
     $(`.card`).on(`mouseover`, function () {
@@ -61,22 +55,41 @@ MemoryGame.gameplay = function () {
     $(`.card`).on(`click`, function (e) {
         var index = $(`.card`).index(this);         // get selected card's index (0 -> total cols)
         $(this).addClass(`selected`);
-        console.log($('.selected').length);
         var that = e;
         MemoryGame.flip(that, index);
         if ($('.selected').length === 1) {
             MemoryGame.selectedFirstCard = MemoryGame.selectedImages[index];
-            console.log(MemoryGame.selectedFirstCard);                  //To delete
         }
         if ($('.selected').length === 2) {
             MemoryGame.selectedSecondCard = MemoryGame.selectedImages[index];
-            console.log(MemoryGame.selectedSecondCard);                  //To delete
-
-            $(`.selected`).removeClass(`selected`);     //  mettre dans la derniere fonction
-            // MemoryGame.selectedFirstCard = -1;
-            // MemoryGame.selectedSecondCard = -1;
+            $(`.card`).css(`pointerEvents`, `none`);                         // user can't click on other cards while timeout
+            MemoryGame.checkMatch();
+            window.setTimeout(function () {
+                $(`.selected`).css(`backgroundImage`, `url(./img/cardBack.jpg)`);
+                $(`.card`).css(`pointerEvents`, `all`);                               // user can click again 
+                $(`.guessed`).css(`pointerEvents`, `none`);
+                MemoryGame.selectedFirstCard = ``;
+                MemoryGame.selectedSecondCard = ``;
+                $(`.selected`).removeClass(`selected`);
+            }, [1000]);
         }
     });
+}
+
+MemoryGame.flip = function (that, index) {
+
+    that.target.style.backgroundImage = `url('./img/${MemoryGame.selectedImages[index]}')`;
+
+}
+
+MemoryGame.checkMatch = function () {
+    if (MemoryGame.selectedFirstCard === MemoryGame.selectedSecondCard) {
+        $(`.selected`).addClass(`guessed`);
+        $(`.selected`).removeClass(`selected`);
+    } else {
+
+    }
+   
 }
 
 

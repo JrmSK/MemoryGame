@@ -36,6 +36,10 @@ body {
     pointer-events: none;
 }
 
+.guessed {
+    pointer-events: none;
+}
+
 /* @media (max-width : 200px) {
     .card{
         width : 75px;

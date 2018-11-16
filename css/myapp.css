@@ -20,14 +20,18 @@ body {
     border-radius: 15px;
     overflow: hidden;
     border: 2px solid white;
+    box-sizing: border-box;
 }
 
 .hovered {
     border: 3px solid gold;
+    box-sizing: border-box;
 }
 
 .selected {
     border: 3px solid firebrick;
+    box-sizing: border-box;
+
 }
 
 /* @media (max-width : 200px) {

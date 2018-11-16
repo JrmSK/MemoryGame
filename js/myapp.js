@@ -42,12 +42,18 @@ MemoryGame.generateBoard = function () {
 }
 
 MemoryGame.gameplay = function () {
+
     $(".card").on("click", function () {
-        var index = $(this).index;
+        var index = $(`.card`).index(this);         // get selected card's index (0 -> total cols)
         $(this).addClass(`selected`);
-        console.log(index);
-        console.log($(this));
-        
+        console.log(index);                 // To remove 
+    });
+
+    $(".card").on("mouseover", function () {
+        $(this).addClass(`hovered`);
+        $(".hovered").on("mouseout", function () {
+            $(this).removeClass(`hovered`);
+        });
     });
 }
 

@@ -1,15 +1,11 @@
-$(document).ready(function () {
-
-});
-
 /* Variables  */
 var MemoryGame = {};
-MemoryGame.nbImages = 12            // If you add pictures, keep same ratio, name it picX.jpg (x is number), and update Memorygame.nbImages
+MemoryGame.nbImages = 12                                      // If you add pictures, keep same ratio, name it picX.jpg (x is number), and update Memorygame.nbImages
 MemoryGame.images = [];
 MemoryGame.selectedImages = [];
 MemoryGame.selectedFirstCard = ``;
 MemoryGame.selectedSecondCard = ``;
-MemoryGame.maxCards = 0;                                                     // By selecting difficulty on modal, this var will change 
+MemoryGame.maxCards = 0;                                     // By selecting difficulty on modal, this var will change 
 MemoryGame.theme = "";
 MemoryGame.wrongCounter = 0;
 
@@ -158,6 +154,7 @@ MemoryGame.flip = function (that, index) {
     that.target.style.backgroundImage = `url('./img/${MemoryGame.theme}/${MemoryGame.selectedImages[index]}')`;
 }
 
+/* Check if cards are matching */
 MemoryGame.checkMatch = function () {
     if (MemoryGame.selectedFirstCard === MemoryGame.selectedSecondCard) {
         $(`.selected`).addClass(`guessed`);
@@ -173,9 +170,7 @@ MemoryGame.checkMatch = function () {
 
 }
 
-
-
-
+/* Functions initiating the game */
 MemoryGame.start = function () {
 
     MemoryGame.generateImagesArray();

@@ -16,13 +16,13 @@ MemoryGame.wrongCounter = 0;
 /* choose randomly pics from  MemoryGame.images + double + random store in array */
 MemoryGame.pickRandomCards = function () {
 
-    var arr1 = [];      // arr1 et arr2 are test for random, make sure we get a number only once 
+    var arr1 = [];                                                           // arr1 et arr2 are test for random, make sure we get a number only once 
     var arr2 = [];
     while (arr1.length < (MemoryGame.maxCards * 2)) {                        // pick random num and store it twice. 
         var r = Math.floor(Math.random() * MemoryGame.images.length);        // This is pretty cool because it will select random pics from total array :)
         if (arr1.indexOf(r) === -1) {
             arr1.push(r);
-            arr1.push(r);       // push twice to get number in double 
+            arr1.push(r);                                                    // push twice to get number in double 
         }
     }
     while (arr2.length < arr1.length) {                                       // Randomize again, to separate doubles.
@@ -67,7 +67,7 @@ MemoryGame.winning = function () {
         keyboard: false
     });
     $("#modal-score").html(`You made ${MemoryGame.wrongCounter} mistakes `)
-    $("#modal-gif").append($(`<img id="winImage" src="./img/win.gif" />`));
+    $("#modal-gif").append($(`<img id="winImage" src="./img/${MemoryGame.theme}/win.gif" />`));
     $("#restart-button").on("click", function () {
         location.reload();
     })
@@ -78,6 +78,17 @@ MemoryGame.generateBoard = function () {
 
     $(`#board`).append(`<div id='header' class='row justify-content-center'>`);
     $('#header').append($('<input type="image" src="./img/newGameButton.png" id="new-game" />'));
+    $('#header').append($('<img src="./img/mute.png" id="mute" />'));
+    $("#mute").on("click", function () {
+        if ($("#mute").hasClass("muted")) {
+            document.getElementById("music-game").play();
+            $("#mute").removeClass("muted");
+        } else {
+            $("#mute").addClass("muted");
+            document.getElementById("music-game").pause();
+        }
+    })
+
     $('#new-game').on(`click`, function () {                          // refreshes the page, offering a new game to the user
         location.reload();
     })
@@ -90,7 +101,13 @@ MemoryGame.generateBoard = function () {
         $(`#board`).append(`<div class='row justify-content-center'>`);
         for (var j = 1; j <= cardsByRow; j++) {
             $(`.row:nth-child(${i + 2})`).append(`<div class='col-xs-5 card'>`);
+            $(".card").css("backgroundImage", `url(./img/${MemoryGame.theme}/cardBack.jpg`);
         }
+    }
+    $(document.body).css("backgroundImage", `url(./img/${MemoryGame.theme}/background.jpg`);
+    if (MemoryGame.theme !== "Casa") {
+        $("#music-game").attr("src", "./audio/rickAudio.mp3");
+
     }
     document.getElementById("music-game").play();
 
@@ -101,7 +118,6 @@ MemoryGame.generateImagesArray = function () {
     for (var i = 0; i < MemoryGame.nbImages; i++) {
         MemoryGame.images.push(`pic${i}.jpg`);
     }
-    console.log(MemoryGame.images);
 }
 
 /* eventlistener on cards - main structure of gameplay */
@@ -126,7 +142,7 @@ MemoryGame.gameplay = function () {
             $(`.card`).css(`pointerEvents`, `none`);                         // user can't click on other cards while timeout
             MemoryGame.checkMatch();
             window.setTimeout(function () {
-                $(`.selected`).css(`backgroundImage`, `url(./img/cardBack.jpg)`);
+                $(`.selected`).css(`backgroundImage`, `url(./img/${MemoryGame.theme}/cardBack.jpg)`);
                 $(`.card`).css(`pointerEvents`, `all`);                               // user can click again 
                 $(`.guessed`).css(`pointerEvents`, `none`);
                 MemoryGame.selectedFirstCard = ``;
@@ -139,7 +155,7 @@ MemoryGame.gameplay = function () {
 
 /* changing cards image while animation */
 MemoryGame.flip = function (that, index) {
-    that.target.style.backgroundImage = `url('./img/${MemoryGame.selectedImages[index]}')`;
+    that.target.style.backgroundImage = `url('./img/${MemoryGame.theme}/${MemoryGame.selectedImages[index]}')`;
 }
 
 MemoryGame.checkMatch = function () {

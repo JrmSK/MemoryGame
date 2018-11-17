@@ -3,7 +3,7 @@ div {
 }
 
 body {
-    background: url("../img/background.jpg");
+    background-color: black;
     background-size:cover ;
     background-repeat: no-repeat;
     height: 100%;
@@ -57,11 +57,16 @@ body {
 
 #header input {
     height: 7vw;
+}
 
+#header #mute {
+    height: 2vw;
+    margin-top: 3vw;
+    cursor: pointer;
 }
 
 #wrong-guesses {
-    color: firebrick;
+    color: white;
     font-size: 2vw;
 
 }
@@ -70,7 +75,6 @@ body {
     width: 105px;
     height: 164px;
     margin: 0.5vw;
-    background-image: url(../img/cardBack.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -100,10 +104,16 @@ body {
 
 }
 
-/* @media (max-width : 200px) {
+@media (max-width : 400px) {
     .card{
         width : 75px;
         height: 116px;
-
     }
-} */
+}
+
+@media (max-width : 800px) {
+    .card{
+        width : 80px;
+        height: 124px;
+    }
+}

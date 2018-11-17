@@ -3,12 +3,52 @@ div {
 }
 
 body {
-    background: url("../img/background.png");
+    background: url("../img/background.jpg");
     background-size:cover ;
     background-repeat: no-repeat;
     height: 100%;
     background-attachment: fixed; 
     background-position: center;
+    font-family: 'Press Start 2P', cursive;
+}
+
+/* modal style */
+.modal {
+    top: 10%;
+    color: firebrick;
+}
+
+.modal-title {
+    font-size: 3vw;
+}
+
+.modal input {
+    vertical-align: middle;
+}
+
+.modal label {
+    display: block;
+    font-size: 2vw;
+}
+
+#new-game {
+    height: 50px;
+}
+
+#header {
+    height: 7.5vw;
+    color: red;
+}
+
+#header input {
+    height: 7vw;
+
+}
+
+#wrong-guesses {
+    color: firebrick;
+    font-size: 2vw;
+
 }
 
 .card {
@@ -19,25 +59,30 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    border-radius: 15px;
+    border-radius: 10px;
     overflow: hidden;
     border: 2px solid white;
     box-sizing: border-box;
+    transition: all 0.5s ease-in-out;    
 }
 
 .hovered {
     border: 3px solid gold;
     box-sizing: border-box;
+    transition: all 0.2s ease-in-out;    
 }
 
 .selected {
     border: 3px solid firebrick;
     box-sizing: border-box;
     pointer-events: none;
+    transform: rotateY(180deg);
 }
 
 .guessed {
     pointer-events: none;
+    transform: rotateY(180deg);
+
 }
 
 /* @media (max-width : 200px) {

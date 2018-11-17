@@ -4,12 +4,16 @@ $(document).ready(function () {
 
 /* Variables  */
 var MemoryGame = {};
-MemoryGame.images = ["pic0.jpg", "pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg", "pic7.jpg", "pic8.jpg",];    // if you want to add an image, add it here (keep same format, and try to keep ratio as well) 
+MemoryGame.nbImages = 12            // If you add pictures, keep same ratio, name it picX.jpg (x is number), and update Memorygame.nbImages
+MemoryGame.images = [];
 MemoryGame.selectedImages = [];
 MemoryGame.selectedFirstCard = ``;
 MemoryGame.selectedSecondCard = ``;
-MemoryGame.maxCards = 6;                                                     // change here for difficulty 
+MemoryGame.maxCards = 0;                                                     // By selecting difficulty on modal, this var will change 
+MemoryGame.theme = "";
+MemoryGame.wrongCounter = 0;
 
+/* choose randomly pics from  MemoryGame.images + double + random store in array */
 MemoryGame.pickRandomCards = function () {
 
     var arr1 = [];      // arr1 et arr2 are test for random, make sure we get a number only once 
@@ -31,19 +35,65 @@ MemoryGame.pickRandomCards = function () {
     }
 }
 
+MemoryGame.generateModal = function () {
+    $('#myModal').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+    $(".radio-difficulty").click(function () {
+        MemoryGame.maxCards = $(this).val();
+    });
+
+    $(".radio-theme").click(function () {
+        MemoryGame.theme = $(this).val();
+    });
+
+    $("#submit").on("click", function () {
+        if (MemoryGame.maxCards !== 0 && MemoryGame.theme !== "") {
+            MemoryGame.start();
+            $("#myModal").css("display", "none");
+            $(".modal-backdrop").css("display", "none");
+        } else {
+            alert("Please select a difficulty & a theme!");
+        }
+    })
+
+
+}
+
+/* Generate all the html besides modals */
 MemoryGame.generateBoard = function () {
 
-    var cardsByRow = 4;                 // change here when dealing with difficulty
-    var count = 0;                      // give proper id to each generated card
+    $(`#board`).append(`<div id='header' class='row justify-content-center'>`);
+    $('#header').append($('<input type="image" src="./img/newGameButton.png" id="new-game" />'));
+    $('#new-game').on(`click`, function () {                          // refreshes the page, offering a new game to the user
+        location.reload();
+    })
+
+    $('#board').append($('<div id="wrong-guesses" class="row justify-content-center">'));
+    $(`#wrong-guesses`).html(`wrong guesses: ${MemoryGame.wrongCounter}`);
+
+    var cardsByRow = (MemoryGame.maxCards * 2) / 3;                 // automatic number of cards per row depending on total
     for (var i = 1; i <= 3; i++) {
         $(`#board`).append(`<div class='row justify-content-center'>`);
         for (var j = 1; j <= cardsByRow; j++) {
-            $(`.row:nth-child(${i})`).append(`<div class='col-xs-5 card'>`);
-            count++;
+            $(`.row:nth-child(${i + 2})`).append(`<div class='col-xs-5 card'>`);
         }
     }
+    setTimeout(() => {                                              // remove setTimeout after implementing modal 
+        document.getElementById("music-game").play();
+    }, 5000)
 }
 
+/* generate images array's content from MemoryGame.nbImages */
+MemoryGame.generateImagesArray = function () {
+    for (var i = 0; i < MemoryGame.nbImages; i++) {
+        MemoryGame.images.push(`pic${i}.jpg`);
+    }
+    console.log(MemoryGame.images);
+}
+
+/* eventlistener on cards - main structure of gameplay */
 MemoryGame.gameplay = function () {
 
     $(`.card`).on(`mouseover`, function () {
@@ -76,10 +126,9 @@ MemoryGame.gameplay = function () {
     });
 }
 
+/* changing cards image while animation */
 MemoryGame.flip = function (that, index) {
-
     that.target.style.backgroundImage = `url('./img/${MemoryGame.selectedImages[index]}')`;
-
 }
 
 MemoryGame.checkMatch = function () {
@@ -87,18 +136,23 @@ MemoryGame.checkMatch = function () {
         $(`.selected`).addClass(`guessed`);
         $(`.selected`).removeClass(`selected`);
     } else {
+        MemoryGame.wrongCounter++;
+        $(`#wrong-guesses`).html(`wrong guesses: ${MemoryGame.wrongCounter}`);
 
     }
-   
+
 }
+
 
 
 
 MemoryGame.start = function () {
 
+    MemoryGame.generateImagesArray();
     MemoryGame.generateBoard();
     MemoryGame.pickRandomCards();
     MemoryGame.gameplay();
+
 }
 
-MemoryGame.start();
+MemoryGame.generateModal();

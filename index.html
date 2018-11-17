@@ -14,7 +14,7 @@
 <body>
 
     <!-- Modal Choose difficulty & -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="startModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -46,6 +46,21 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="submit">Play!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="winModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">You won!</h4>
+                </div>
+                <div class="modal-body" id="modal-score"></div>
+                <div class="modal-body" id="modal-gif"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="restart-button">Restart!</button>
                 </div>
             </div>
         </div>

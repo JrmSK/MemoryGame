@@ -31,6 +31,21 @@ body {
     font-size: 2vw;
 }
 
+.modal button {
+    height: 4vw;
+    width: 12vw;
+    font-size: 2vw;
+    padding: 0.4vw;
+}
+
+#winImage {
+    width: 100%;
+}
+
+#winModal button {
+    font-size: 1.2vw;
+}
+
 #new-game {
     height: 50px;
 }

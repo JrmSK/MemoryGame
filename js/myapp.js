@@ -35,8 +35,9 @@ MemoryGame.pickRandomCards = function () {
     }
 }
 
+/* Welcome modal */
 MemoryGame.generateModal = function () {
-    $('#myModal').modal({
+    $('#startModal').modal({
         backdrop: 'static',
         keyboard: false
     })
@@ -51,14 +52,25 @@ MemoryGame.generateModal = function () {
     $("#submit").on("click", function () {
         if (MemoryGame.maxCards !== 0 && MemoryGame.theme !== "") {
             MemoryGame.start();
-            $("#myModal").css("display", "none");
+            $("#startModal").css("display", "none");
             $(".modal-backdrop").css("display", "none");
         } else {
             alert("Please select a difficulty & a theme!");
         }
     })
+}
 
-
+/* Winning modal */
+MemoryGame.winning = function () {
+    $('#winModal').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+    $("#modal-score").html(`You made ${MemoryGame.wrongCounter} mistakes `)
+    $("#modal-gif").append($(`<img id="winImage" src="./img/win.gif" />`));
+    $("#restart-button").on("click", function () {
+        location.reload();
+    })
 }
 
 /* Generate all the html besides modals */
@@ -80,9 +92,8 @@ MemoryGame.generateBoard = function () {
             $(`.row:nth-child(${i + 2})`).append(`<div class='col-xs-5 card'>`);
         }
     }
-    setTimeout(() => {                                              // remove setTimeout after implementing modal 
-        document.getElementById("music-game").play();
-    }, 5000)
+    document.getElementById("music-game").play();
+
 }
 
 /* generate images array's content from MemoryGame.nbImages */
@@ -139,6 +150,9 @@ MemoryGame.checkMatch = function () {
         MemoryGame.wrongCounter++;
         $(`#wrong-guesses`).html(`wrong guesses: ${MemoryGame.wrongCounter}`);
 
+    }
+    if ($(".guessed").length === (MemoryGame.maxCards * 2)) {
+        MemoryGame.winning();
     }
 
 }
